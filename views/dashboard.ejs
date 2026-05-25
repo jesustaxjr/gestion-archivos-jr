@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis Archivos</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header-actions">
+            <h2>Bienvenido, <%= usuario %></h2>
+            <a href="/logout">Cerrar Sesión</a>
+        </div>
+
+        <h3>Subir nuevo archivo</h3>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="archivo" required>
+            <button type="submit">Subir Archivo</button>
+        </form>
+
+        <h3 style="margin-top: 30px;">Mis Archivos Guardados</h3>
+        <% if (archivos.length === 0) { %>
+            <p>No tienes archivos almacenados.</p>
+        <% } else { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Único</th>
+                        <th>Nombre Original</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% archivos.forEach(function(file) { %>
+                        <tr>
+                            <td><code><%= file.id %></code></td>
+                            <td><%= file.nombre_original %></td>
+                            <td>
+				<a href="/uploads/<%= file.ruta_servidor %>" target="_blank">Ver</a> |
+                                <a href="/uploads/<%= file.ruta_servidor %>" download="<%= file.nombre_original %>">Descargar</a> |
+                                <a href="/delete/<%= file.id %>" class="btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este archivo?')">Eliminar</a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+</body>
+</html>
