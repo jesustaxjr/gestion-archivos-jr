@@ -5,7 +5,7 @@ const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcryptjs');
 
-// Importar nuestros módulos
+// Importar los módulos necesarios
 const db = require('./config/database');
 const initDatabase = require('./models/schema');
 const authMiddleware = require('./middleware/auth');
@@ -13,26 +13,26 @@ const fileController = require('./controllers/fileController');
 
 const app = express();
 
-// 1. Inicializar Base de Datos (crea tablas y usuarios de prueba)
+// Iniciando la BD
 initDatabase();
 
-// 2. Configurar Express y Vistas
+// Configurar Express y Vistas
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 3. Proteger la carpeta de descargas (Solo logueados pueden descargar)
+// Aqui se protege la carpeta de descargas solo con los clientes logeados correctamente
 app.use('/uploads', authMiddleware, express.static(path.join(__dirname, 'public/uploads')));
 
-// 4. Configurar Sesiones
+// Configurar Sesiones
 app.use(session({
     secret: 'clave_secreta_jr_2026',
     resave: false,
     saveUninitialized: false
 }));
 
-// 5. Configurar Multer (Manejo de archivos subidos)
+// Configurar Multer
 const storage = multer.diskStorage({
     destination: (req, file, cb) => { cb(null, 'public/uploads/'); },
     filename: (req, file, cb) => {
@@ -42,7 +42,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-// ================= RUTAS DE AUTENTICACIÓN =================
+// Rutas de autenticacion.
 
 app.get('/login', (req, res) => {
     if (req.session.userId) return res.redirect('/dashboard');
@@ -70,7 +70,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-// ================= RUTAS DE ARCHIVOS =================
+// Rutas de los archivos
 
 app.get('/dashboard', authMiddleware, fileController.getDashboard);
 app.post('/upload', authMiddleware, upload.single('archivo'), fileController.uploadFile);
@@ -83,8 +83,8 @@ app.use((req, res) => res.redirect('/login'));
 // ================= INICIAR SERVIDOR =================
 const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`\n✅ Servidor corriendo con éxito en: http://localhost:${PORT}`);
-    console.log(`🔑 Usuarios de prueba creados:`);
+    console.log(`\n Servidor corriendo con éxito en: http://localhost:${PORT}`);
+    console.log(`Usuarios de prueba creados:`);
     console.log(`   - Usuario: usuario1 | Clave: user123`);
     console.log(`   - Usuario: usuario2 | Clave: user456\n`);
 });
