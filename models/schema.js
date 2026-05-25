@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 function initDatabase() {
     db.serialize(() => {
-        // 1.Tabla usuario y archivos
+        // Tabla usuario y archivos
         db.run(`CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT UNIQUE,
