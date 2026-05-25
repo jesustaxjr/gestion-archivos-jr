@@ -4,7 +4,7 @@ Aplicación web desarrollada en Node.js que permite a los usuarios autenticados 
 
 ---
 
-## 📊 Diagrama Entidad-Relación (E-R)
+#Diagrama Entidad-Relación (E-R)
 
 La base de datos SQLite consta de dos tablas con una relación de uno a muchos (1:N).
 
@@ -23,7 +23,7 @@ erDiagram
         INTEGER usuario_id FK "Referencia a USUARIOS.id"
         TEXT nombre_original "Nombre original del archivo"
         TEXT ruta_servidor "Nombre físico almacenado"
-    }
+    }```
 
 
 Manual Técnico
