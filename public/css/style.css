@@ -8,6 +8,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
+    min-height: 100vh;
 }
 
 .container {
@@ -22,6 +24,7 @@ body {
 
 .login-container {
     max-width: 350px;
+    margin: auto;
 }
 
 h2, h3 {
