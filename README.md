@@ -8,7 +8,7 @@ Aplicación web desarrollada en Node.js que permite a los usuarios autenticados 
 
 La base de datos SQLite consta de dos tablas con una relación de uno a muchos (1:N).
 
-```mermaid
+mermaid
 erDiagram
     USUARIOS ||--o{ ARCHIVOS : "posee"
     
@@ -23,7 +23,7 @@ erDiagram
         INTEGER usuario_id FK "Referencia a USUARIOS.id"
         TEXT nombre_original "Nombre original del archivo"
         TEXT ruta_servidor "Nombre físico almacenado"
-    }```
+    }
 
 
 Manual Técnico
